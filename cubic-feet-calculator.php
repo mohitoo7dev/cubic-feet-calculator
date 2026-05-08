@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Cubic Feet Calculator
- * Plugin URI:        https://github.com/mohit/cubic-feet-calculator
+ * Plugin URI:        https://github.com/mohitoo7dev/cubic-feet-calculator
  * Description:       Professional, fully responsive shortcode calculator for cubic feet. Supports Inches, Centimeters and Millimeters. Use [cubic_feet_calculator] shortcode.
  * Version:           3.0.0
  * Requires at least: 5.8
