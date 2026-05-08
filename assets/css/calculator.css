@@ -1,0 +1,607 @@
+/**
+ * Cubic Feet Calculator — Professional Responsive Stylesheet
+ * Author:  Mohit
+ * Version: 3.0.0
+ * Package: CubicFeetCalculator
+ */
+
+/* ═══════════════════════════════════════════════
+   1. CSS Custom Properties
+═══════════════════════════════════════════════ */
+.cfc-wrap {
+	/* Brand */
+	--cfc-blue:         #1a3fa0;
+	--cfc-blue-dark:    #122d78;
+	--cfc-blue-light:   #e8eefb;
+	--cfc-blue-mid:     #c5d3f5;
+	--cfc-accent:       #2563eb;
+
+	/* Neutral */
+	--cfc-white:        #ffffff;
+	--cfc-bg:           #f4f6fb;
+	--cfc-card:         #ffffff;
+	--cfc-border:       #e2e6f0;
+	--cfc-border-dark:  #c8cedf;
+	--cfc-text:         #111827;
+	--cfc-text-2:       #374151;
+	--cfc-muted:        #6b7280;
+	--cfc-placeholder:  #9ca3af;
+
+	/* State */
+	--cfc-error-bg:     #fef2f2;
+	--cfc-error-border: #fca5a5;
+	--cfc-error-text:   #b91c1c;
+	--cfc-success-bg:   #f0fdf4;
+	--cfc-success-border:#86efac;
+	--cfc-success-text: #15803d;
+
+	/* Result */
+	--cfc-result-bg:    linear-gradient(135deg, #1a3fa0 0%, #2563eb 100%);
+	--cfc-result-text:  #ffffff;
+
+	/* Tokens */
+	--cfc-radius-sm:    6px;
+	--cfc-radius:       10px;
+	--cfc-radius-lg:    16px;
+	--cfc-radius-xl:    20px;
+	--cfc-shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+	--cfc-shadow:       0 4px 16px rgba(26,63,160,.10), 0 2px 6px rgba(0,0,0,.06);
+	--cfc-shadow-lg:    0 10px 40px rgba(26,63,160,.14), 0 4px 12px rgba(0,0,0,.08);
+	--cfc-t:            .2s cubic-bezier(.4,0,.2,1);
+
+	/* Font */
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+	             "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--cfc-text);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Layout */
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 20px 48px;
+	box-sizing: border-box;
+}
+
+/* All children inherit box-sizing */
+.cfc-wrap *,
+.cfc-wrap *::before,
+.cfc-wrap *::after {
+	box-sizing: border-box;
+}
+
+/* ═══════════════════════════════════════════════
+   2. Header
+═══════════════════════════════════════════════ */
+.cfc-header {
+	text-align: center;
+	padding: 44px 16px 28px;
+}
+
+.cfc-header__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+	background: var(--cfc-blue-light);
+	border-radius: 18px;
+	color: var(--cfc-blue);
+	margin-bottom: 18px;
+}
+.cfc-header__icon svg {
+	width: 34px;
+	height: 34px;
+}
+
+.cfc-title {
+	font-size: clamp(1.65rem, 4.5vw, 2.4rem);
+	font-weight: 800;
+	letter-spacing: -0.5px;
+	color: var(--cfc-text);
+	margin: 0 0 10px;
+	line-height: 1.2;
+}
+
+.cfc-subtitle {
+	font-size: clamp(.9rem, 2.5vw, 1rem);
+	color: var(--cfc-muted);
+	margin: 0;
+	line-height: 1.65;
+	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* ═══════════════════════════════════════════════
+   3. Card
+═══════════════════════════════════════════════ */
+.cfc-card {
+	background: var(--cfc-card);
+	border: 1px solid var(--cfc-border);
+	border-radius: var(--cfc-radius-xl);
+	padding: 32px;
+	box-shadow: var(--cfc-shadow-lg);
+}
+
+/* ═══════════════════════════════════════════════
+   4. Unit Tab Selector
+═══════════════════════════════════════════════ */
+.cfc-units {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 28px;
+	background: var(--cfc-bg);
+	border: 1px solid var(--cfc-border);
+	border-radius: var(--cfc-radius);
+	padding: 5px;
+}
+
+.cfc-unit-tab {
+	flex: 1;
+	padding: 9px 12px;
+	font-size: .85rem;
+	font-weight: 600;
+	font-family: inherit;
+	color: var(--cfc-muted);
+	background: transparent;
+	border: none;
+	border-radius: var(--cfc-radius-sm);
+	cursor: pointer;
+	transition: background var(--cfc-t), color var(--cfc-t), box-shadow var(--cfc-t);
+	text-align: center;
+	white-space: nowrap;
+}
+
+.cfc-unit-tab:hover:not(.is-active) {
+	background: rgba(26,63,160,.06);
+	color: var(--cfc-blue);
+}
+
+.cfc-unit-tab.is-active {
+	background: var(--cfc-white);
+	color: var(--cfc-blue);
+	box-shadow: var(--cfc-shadow-sm);
+}
+
+/* ═══════════════════════════════════════════════
+   5. Input Fields
+═══════════════════════════════════════════════ */
+.cfc-inputs {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20px;
+	margin-bottom: 24px;
+}
+
+.cfc-field {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.cfc-label {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: .78rem;
+	font-weight: 700;
+	color: var(--cfc-text-2);
+	text-transform: uppercase;
+	letter-spacing: .06em;
+}
+
+.cfc-label__icon {
+	font-size: .9rem;
+	color: var(--cfc-blue);
+	font-style: normal;
+}
+
+.cfc-input-wrap {
+	position: relative;
+}
+
+.cfc-input {
+	width: 100%;
+	padding: 12px 52px 12px 14px;
+	font-size: 1rem;
+	font-family: inherit;
+	font-weight: 500;
+	color: var(--cfc-text);
+	background: var(--cfc-bg);
+	border: 1.5px solid var(--cfc-border);
+	border-radius: var(--cfc-radius);
+	outline: none;
+	transition: border-color var(--cfc-t), box-shadow var(--cfc-t), background var(--cfc-t);
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.cfc-input::placeholder {
+	color: var(--cfc-placeholder);
+	font-weight: 400;
+}
+
+.cfc-input:hover {
+	border-color: var(--cfc-border-dark);
+	background: var(--cfc-white);
+}
+
+.cfc-input:focus {
+	border-color: var(--cfc-blue);
+	background: var(--cfc-white);
+	box-shadow: 0 0 0 3px rgba(26,63,160,.12);
+}
+
+/* Remove number spinners */
+.cfc-input[type="number"]::-webkit-inner-spin-button,
+.cfc-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.cfc-input[type="number"] { -moz-appearance: textfield; }
+
+/* Unit badge inside input */
+.cfc-input-unit {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: .72rem;
+	font-weight: 600;
+	color: var(--cfc-muted);
+	background: var(--cfc-border);
+	padding: 2px 6px;
+	border-radius: 4px;
+	pointer-events: none;
+	white-space: nowrap;
+	text-transform: capitalize;
+	max-width: 44px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* ═══════════════════════════════════════════════
+   6. Error Message
+═══════════════════════════════════════════════ */
+.cfc-error {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 12px 16px;
+	background: var(--cfc-error-bg);
+	border: 1px solid var(--cfc-error-border);
+	border-radius: var(--cfc-radius);
+	color: var(--cfc-error-text);
+	font-size: .88rem;
+	font-weight: 500;
+	margin-bottom: 20px;
+	animation: cfc-slide-down .2s ease;
+}
+.cfc-error__icon {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	margin-top: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   7. Action Buttons
+═══════════════════════════════════════════════ */
+.cfc-actions {
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+}
+
+.cfc-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 13px 26px;
+	font-size: .95rem;
+	font-weight: 700;
+	font-family: inherit;
+	border-radius: var(--cfc-radius);
+	cursor: pointer;
+	transition: all var(--cfc-t);
+	white-space: nowrap;
+	user-select: none;
+}
+.cfc-btn svg {
+	width: 17px;
+	height: 17px;
+	flex-shrink: 0;
+}
+
+/* Ghost / Reset */
+.cfc-btn--ghost {
+	color: var(--cfc-muted);
+	background: transparent;
+	border: 1.5px solid var(--cfc-border-dark);
+}
+.cfc-btn--ghost:hover {
+	color: var(--cfc-text);
+	border-color: var(--cfc-blue);
+	background: var(--cfc-blue-light);
+}
+
+/* Primary / Calculate */
+.cfc-btn--primary {
+	color: #fff;
+	background: var(--cfc-blue);
+	border: 2px solid transparent;
+	box-shadow: 0 2px 8px rgba(26,63,160,.30);
+}
+.cfc-btn--primary:hover:not(:disabled) {
+	background: var(--cfc-blue-dark);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(26,63,160,.36);
+}
+.cfc-btn--primary:active:not(:disabled) {
+	transform: translateY(0);
+	box-shadow: 0 2px 8px rgba(26,63,160,.30);
+}
+.cfc-btn--primary:disabled {
+	opacity: .6;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Loading spinner */
+.cfc-btn__icon  { flex-shrink: 0; }
+.cfc-btn__spinner {
+	width: 16px;
+	height: 16px;
+	border: 2.5px solid rgba(255,255,255,.3);
+	border-top-color: #fff;
+	border-radius: 50%;
+	animation: cfc-spin .65s linear infinite;
+	display: none;
+	flex-shrink: 0;
+}
+.cfc-btn--primary.is-loading .cfc-btn__spinner { display: block; }
+.cfc-btn--primary.is-loading .cfc-btn__icon    { display: none; }
+.cfc-btn--primary.is-loading .cfc-btn__text    { opacity: .8; }
+
+/* ═══════════════════════════════════════════════
+   8. Result Panel
+═══════════════════════════════════════════════ */
+.cfc-result {
+	margin-top: 24px;
+	animation: cfc-fade-up .35s cubic-bezier(.4,0,.2,1);
+}
+
+.cfc-result__inner {
+	background: var(--cfc-result-bg);
+	border-radius: var(--cfc-radius-lg);
+	padding: 28px 32px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Decorative circles */
+.cfc-result__inner::before,
+.cfc-result__inner::after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	background: rgba(255,255,255,.06);
+	pointer-events: none;
+}
+.cfc-result__inner::before {
+	width: 180px; height: 180px;
+	top: -60px; right: -40px;
+}
+.cfc-result__inner::after {
+	width: 120px; height: 120px;
+	bottom: -40px; left: -20px;
+}
+
+.cfc-result__badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 5px 14px;
+	background: rgba(255,255,255,.18);
+	border: 1px solid rgba(255,255,255,.25);
+	border-radius: 99px;
+	color: rgba(255,255,255,.92);
+	font-size: .8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .06em;
+	margin-bottom: 16px;
+}
+.cfc-result__badge svg {
+	width: 14px;
+	height: 14px;
+}
+
+.cfc-result__value-wrap {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.cfc-result__value {
+	font-size: clamp(2.8rem, 7vw, 4rem);
+	font-weight: 900;
+	color: #ffffff;
+	letter-spacing: -2px;
+	line-height: 1;
+}
+
+.cfc-result__unit {
+	font-size: clamp(1rem, 3vw, 1.3rem);
+	font-weight: 700;
+	color: rgba(255,255,255,.85);
+}
+
+.cfc-result__unit-abbr {
+	font-size: clamp(.85rem, 2.5vw, 1.1rem);
+	font-weight: 500;
+	color: rgba(255,255,255,.6);
+	font-style: italic;
+}
+
+.cfc-result__meta {
+	margin: 12px 0 0;
+	font-size: .82rem;
+	color: rgba(255,255,255,.65);
+	font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════
+   9. Footer note
+═══════════════════════════════════════════════ */
+.cfc-footer {
+	text-align: center;
+	font-size: .78rem;
+	color: var(--cfc-muted);
+	margin: 16px 0 0;
+	padding: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   10. Animations
+═══════════════════════════════════════════════ */
+@keyframes cfc-spin {
+	to { transform: rotate(360deg); }
+}
+@keyframes cfc-fade-up {
+	from { opacity: 0; transform: translateY(12px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes cfc-slide-down {
+	from { opacity: 0; transform: translateY(-6px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════
+   11. RESPONSIVE — Tablet (≤ 768px)
+═══════════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+	.cfc-wrap {
+		padding: 0 16px 40px;
+	}
+	.cfc-header {
+		padding: 36px 8px 24px;
+	}
+	.cfc-header__icon {
+		width: 56px;
+		height: 56px;
+	}
+	.cfc-card {
+		padding: 24px 20px;
+		border-radius: var(--cfc-radius-lg);
+	}
+	.cfc-inputs {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 14px;
+	}
+	.cfc-unit-tab {
+		font-size: .8rem;
+		padding: 8px 8px;
+	}
+	.cfc-result__inner {
+		padding: 24px 20px;
+	}
+}
+
+/* ═══════════════════════════════════════════════
+   12. RESPONSIVE — Mobile (≤ 600px)
+═══════════════════════════════════════════════ */
+@media screen and (max-width: 600px) {
+	.cfc-wrap {
+		padding: 0 12px 36px;
+	}
+	.cfc-header {
+		padding: 28px 4px 20px;
+	}
+	.cfc-header__icon {
+		width: 52px;
+		height: 52px;
+		border-radius: 14px;
+	}
+	.cfc-header__icon svg {
+		width: 28px;
+		height: 28px;
+	}
+	.cfc-card {
+		padding: 20px 16px;
+		border-radius: var(--cfc-radius-lg);
+	}
+	/* Stack inputs 1 per row on small mobile */
+	.cfc-inputs {
+		grid-template-columns: 1fr;
+		gap: 14px;
+		margin-bottom: 18px;
+	}
+	.cfc-input {
+		padding: 13px 56px 13px 14px;
+		font-size: .97rem;
+	}
+	/* Unit tabs scroll horizontally */
+	.cfc-units {
+		gap: 4px;
+		padding: 4px;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		flex-wrap: nowrap;
+		margin-bottom: 20px;
+	}
+	.cfc-unit-tab {
+		flex: 0 0 auto;
+		min-width: 90px;
+		font-size: .8rem;
+		padding: 9px 10px;
+	}
+	/* Full-width buttons stacked */
+	.cfc-actions {
+		flex-direction: column-reverse;
+		gap: 10px;
+	}
+	.cfc-btn {
+		width: 100%;
+		padding: 14px;
+		font-size: 1rem;
+		justify-content: center;
+	}
+	.cfc-result__inner {
+		padding: 22px 16px;
+	}
+	.cfc-result__value {
+		letter-spacing: -1px;
+	}
+}
+
+/* ═══════════════════════════════════════════════
+   13. RESPONSIVE — Small Mobile (≤ 380px)
+═══════════════════════════════════════════════ */
+@media screen and (max-width: 380px) {
+	.cfc-title {
+		font-size: 1.5rem;
+	}
+	.cfc-subtitle {
+		font-size: .85rem;
+	}
+	.cfc-card {
+		padding: 16px 12px;
+	}
+	.cfc-unit-tab {
+		min-width: 80px;
+		font-size: .75rem;
+	}
+	.cfc-result__badge {
+		font-size: .72rem;
+	}
+}
+
+/* ═══════════════════════════════════════════════
+   14. Utility
+═══════════════════════════════════════════════ */
+[hidden] { display: none !important; }
